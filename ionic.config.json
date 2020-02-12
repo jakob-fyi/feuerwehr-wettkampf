@@ -1,0 +1,7 @@
+{
+  "name": "feuerwehr-wettkampf",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
