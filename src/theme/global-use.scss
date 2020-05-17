@@ -1,0 +1,40 @@
+/* nova-mono-regular - latin */
+@font-face {
+	font-family: "Nova Mono";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.eot"); /* IE9 Compat Modes */
+	src: local("NovaMono"),
+		url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.eot?#iefix")
+			format("embedded-opentype"),
+		/* IE6-IE8 */
+			url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.woff2")
+			format("woff2"),
+		/* Super Modern Browsers */
+			url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.woff")
+			format("woff"),
+		/* Modern Browsers */
+			url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.ttf")
+			format("truetype"),
+		/* Safari, Android, iOS */
+			url("../assets/nova-mono-v10-latin/nova-mono-v10-latin-regular.svg#NovaMono")
+			format("svg"); /* Legacy iOS */
+}
+
+ion-header {
+	//background-image: url("../assets/images/device-1155007_1920.jpg");
+	background-size: cover;
+	background-position: center bottom;
+
+	ion-toolbar {
+		//--background: rgba(255, 255, 255, 0.9);
+
+		&.toolbar-title-large {
+			ion-title[size="large"] {
+				font-weight: bold;
+				padding: 20px;
+				margin-top: 20px;
+			}
+		}
+	}
+}
