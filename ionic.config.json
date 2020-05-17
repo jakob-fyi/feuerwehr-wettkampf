@@ -1,8 +1,8 @@
 {
-  "name": "feuerwehr-wettkampf",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "angular"
+	"name": "Feuerwehr Wettkampf",
+	"integrations": {
+		"capacitor": {},
+		"cordova": {}
+	},
+	"type": "angular"
 }

@@ -1,0 +1,146 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-buttons slot="primary">
+			<ion-button routerLink="/settings">
+				<ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+			</ion-button>
+			<ion-button>
+				<ion-icon
+					slot="icon-only"
+					name="folder-open-outline"
+				></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+	<ion-toolbar>
+		<ion-title size="large">Neues Training aufzeichnen</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="center">
+		<h1 class="seconds">{{ training.timing.currentDifferential }}</h1>
+
+		<!-- Start -->
+		<ion-button
+			[hidden]="training.timing.status.started"
+			class="button-next-step"
+			fill="solid"
+			shape="round"
+			color="light"
+			(click)="training.startTiming(); settingsPaneClosed = true;"
+		>
+			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+			<span class="">Zeitaufzeichnung starten</span>
+		</ion-button>
+
+		<!-- Interim -->
+		<ion-button
+			[hidden]="!training.getNextToTakeIterim() || !training.timing.status.running"
+			class="button-next-step"
+			fill="solid"
+			shape="round"
+			color="light"
+			(click)="training.takeInterim()"
+		>
+			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+			<span class="">{{ training.getNextToTakeIterim()?.name }}</span>
+		</ion-button>
+
+		<!-- Last Interim -->
+		<p [hidden]="training.recordedInterims.length <= 0">
+			{{training.recordedInterims[training.recordedInterims.length -
+			1]?.name}}:
+			{{training.recordedInterims[training.recordedInterims.length -
+			1]?.time}}
+		</p>
+
+		<!-- All Interims after Stop -->
+		<p
+			*ngFor="let item of training.recordedInterims"
+			[hidden]="training.timing.status.running || !(training.timing.status.ended && training.timing.status.started)"
+		>
+			{{item.name}}: {{item.time}}
+		</p>
+	</div>
+</ion-content>
+
+<ion-footer>
+	<div class="stop-reset-buttons">
+		<!-- Stop -->
+		<ion-button
+			[hidden]="training.timing.status.ended || !settingsPaneClosed"
+			fill="solid"
+			shape="round"
+			color="light"
+			(click)="training.stopTiming()"
+		>
+			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+			<span class="">Endzeit stoppen</span>
+		</ion-button>
+
+		<!-- Reset = new Training -->
+		<ion-button
+			[hidden]="training.timing.status.running || !(training.timing.status.ended && training.timing.status.started)"
+			class="button-next-step"
+			fill="solid"
+			shape="round"
+			color="light"
+			(click)="resetTraining()"
+		>
+			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+			<span class="">Neues Training</span>
+		</ion-button>
+	</div>
+
+	<div
+		class="training-settings-pane"
+		[ngClass]="{'training-settings-pane--closed': settingsPaneClosed}"
+	>
+		<ion-list>
+			<ion-list-header>
+				<ion-label>Einstellungen für das Training</ion-label>
+			</ion-list-header>
+			<ion-item-divider>Trainingstyp</ion-item-divider>
+			<ion-radio-group value="gesamt">
+				<ion-item>
+					<ion-label>Kuppeln</ion-label>
+					<ion-radio slot="end" value="kuppeln"></ion-radio>
+				</ion-item>
+				<ion-item>
+					<ion-label>Gesamt</ion-label>
+					<ion-radio slot="end" value="gesamt"></ion-radio>
+				</ion-item>
+			</ion-radio-group>
+			<ion-item-divider>Angriffsbefehl</ion-item-divider>
+			<ion-item>
+				<ion-label>Angriffsbefehl abspielen</ion-label>
+				<ion-toggle slot="end"></ion-toggle>
+			</ion-item>
+			<ion-item>
+				<ion-label>Zeitnehmung automatisch starten</ion-label>
+				<ion-toggle slot="end"></ion-toggle>
+			</ion-item>
+		</ion-list>
+
+		<!--
+		<div class="toggle-buttons-wrapper">
+			<ion-button class="toggle-button" fill="solid" color="light"
+				>Kuppeln</ion-button
+			>
+			<ion-button class="toggle-button" fill="outline" color="light"
+				>Gesamt</ion-button
+			>
+		</div>
+		<ion-fab-button fill="solid" shape="round" color="light">
+			<ion-icon name="ear-outline"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-button fill="solid" shape="round" color="light" disabled>
+			<ion-icon name="play-outline"></ion-icon>
+		</ion-fab-button>
+		-->
+	</div>
+</ion-footer>
