@@ -34,20 +34,25 @@
         </ion-button>
 
         <!-- Stop -->
-        <ion-button [hidden]="trainingManager.ableToStopTiming() == false" class="button-next-step"  fill="solid" shape="round" color="light" (click)="trainingManager.stopTiming()">
+        <ion-button [hidden]="trainingManager.ableToStopTiming() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="trainingManager.stopTiming()">
             <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
             <span>Endzeit stoppen</span>
         </ion-button>
 
-        <!-- Last Interim -->
-        <p [hidden]="trainingManager.prevInterim == false">
-            {{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}
-        </p>
+        <div class="interim-wrapper">
 
-        <!-- All Interims after Stop -->
-        <p *ngFor="let item of trainingManager.interims" [hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED">
-            {{ item.name }}: {{ item.time }}
-        </p>
+            <!-- Last Interim -->
+            <ion-chip color="light" [hidden]="trainingManager.prevInterim == false">
+                <ion-icon name="timer"></ion-icon>
+                <ion-label>{{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}</ion-label>
+            </ion-chip>
+
+            <!-- All Interims after Stop -->
+            <p class="interim" *ngFor="let item of trainingManager.interims" [hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED">
+                {{ item.name }}: {{ item.time }}
+            </p>
+
+        </div>
     </div>
 </ion-content>
 
@@ -59,6 +64,7 @@
             <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
             <span>Speichern & Neues Training</span>
         </ion-button>
+
     </div>
 
     <div class="training-settings-pane" [ngClass]="{'training-settings-pane--closed': settingsPaneClosed}">
