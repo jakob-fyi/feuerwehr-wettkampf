@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+            <ion-button routerLink="/settings">
+                <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+            </ion-button>
+            <ion-button>
+                <ion-icon slot="icon-only" name="folder-open-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-title size="large">Neues Training aufzeichnen</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="center">
+        <h1 class="seconds">{{ trainingManager.stopwatch.currentDifferential }}</h1>
+
+        <!-- Start -->
+        <ion-button [hidden]="trainingManager.ableToStartTiming() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="setupTrainingAndStart()">
+            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+            <span class="">Zeitaufzeichnung starten</span>
+        </ion-button>
+
+        <!-- Interim -->
+        <ion-button [hidden]="trainingManager.ableToTakeInterim() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="trainingManager.takeInterim(trainingManager.nextInterim)">
+            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+            <span class="">{{ trainingManager.nextInterim?.name }}</span>
+        </ion-button>
+
+        <!-- Last Interim -->
+        <p [hidden]="trainingManager.prevInterim == false">
+            {{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}
+        </p>
+
+        <!-- All Interims after Stop -->
+        <p *ngFor="let item of trainingManager.interims" [hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED">
+            {{ item.name }}: {{ item.time }}
+        </p>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <div class="stop-reset-buttons">
+        <!-- Stop -->
+        <ion-button [hidden]="trainingManager.ableToStopTiming() == false" fill="solid" shape="round" color="light" (click)="trainingManager.stopTiming()">
+            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+            <span class="">Endzeit stoppen</span>
+        </ion-button>
+
+        <!-- Reset = new Training -->
+        <ion-button [hidden]="trainingManager.ableToSaveAndReset() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="resetTraining()">
+            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+            <span class="">Speichern & Neues Training</span>
+        </ion-button>
+    </div>
+
+    <div class="training-settings-pane" [ngClass]="{'training-settings-pane--closed': settingsPaneClosed}">
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Einstellungen für das Training</ion-label>
+            </ion-list-header>
+            <ion-item-divider>Trainingstyp</ion-item-divider>
+            <ion-radio-group [(ngModel)]="trainingType">
+                <ion-item>
+                    <ion-label>Kuppeln</ion-label>
+                    <ion-radio slot="end" value="kuppeln"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Gesamt</ion-label>
+                    <ion-radio slot="end" value="gesamt"></ion-radio>
+                </ion-item>
+            </ion-radio-group>
+            <ion-item-divider>Angriffsbefehl</ion-item-divider>
+            <ion-item>
+                <ion-label>Angriffsbefehl abspielen</ion-label>
+                <ion-toggle slot="end"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label>Zeitnehmung automatisch starten</ion-label>
+                <ion-toggle slot="end"></ion-toggle>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-footer>

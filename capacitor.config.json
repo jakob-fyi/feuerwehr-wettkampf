@@ -1,0 +1,8 @@
+{
+	"appId": "com.appartig.feuerwehr.wettkampf",
+	"appName": "Wettkampf",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"cordova": {}
+}
