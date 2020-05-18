@@ -42,15 +42,18 @@
         <div class="interim-wrapper">
 
             <!-- Last Interim -->
-            <ion-chip color="light" [hidden]="trainingManager.prevInterim == false">
+            <ion-chip class="interim" color="light" [hidden]="trainingManager.prevInterim == false">
                 <ion-icon name="timer"></ion-icon>
-                <ion-label>{{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}</ion-label>
+                <ion-label class="interim__name">{{ trainingManager.prevInterim?.name }}</ion-label>
+                <ion-label class="interim__time">{{ trainingManager.prevInterim?.time }}</ion-label>
             </ion-chip>
 
             <!-- All Interims after Stop -->
-            <p class="interim" *ngFor="let item of trainingManager.interims" [hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED">
-                {{ item.name }}: {{ item.time }}
-            </p>
+            <ion-chip class="interim" color="light" [hidden]="trainingManager.ableToSaveAndReset() == false" *ngFor="let item of trainingManager.training.interims">
+                <ion-icon name="timer"></ion-icon>
+                <ion-label class="interim__name">{{ item?.name }}</ion-label>
+                <ion-label class="interim__time">{{ item?.time }}</ion-label>
+            </ion-chip>
 
         </div>
     </div>

@@ -17,16 +17,39 @@ ion-content {
 			font-family: "Nova Mono", monospace;
         }
         
-        .interim-wrapper
-        {
+        .interim-wrapper{
+            display: flex;
+            flex-direction: column;
             margin-top: 30px;
-            min-height: 30px;
+            min-height: 35px;
             color: #ffffff;
             font-weight: bold;
 
             .interim{
                 padding: 0px;
                 margin: 0px;
+                margin-bottom: 10px;
+
+                ion-icon{
+                    padding: 7px 0px 7px 12px;
+                }
+                
+                &__name{
+                    padding: 7px 0px;
+                    flex: 1;
+                }
+
+                &__time{
+                    color: #fff;
+                    background-color: rgba(#ffffff, 0.1);
+                    font-weight: bold;
+                    padding: 7px 15px 7px 12px;
+                    margin-left: 10px;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                }
             }
         }
 	}

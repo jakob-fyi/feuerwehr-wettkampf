@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { SettingsService } from "src/app/services/settings/settings.service";
 import { TrainingService } from "src/app/services/training/training.service";
 import { TrainingType } from "src/app/models/training-type/training-type";
+import { TrainingStatus } from "src/app/models/training-status/training-status";
 
 @Component({
     selector: "app-timing",
