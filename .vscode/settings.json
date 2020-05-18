@@ -1,0 +1,12 @@
+{
+    "editor.detectIndentation": false,
+    "prettier.tabWidth": 4,
+    "prettier.jsxBracketSameLine": true,
+    "prettier.bracketSpacing": false,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true, 
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "editor.formatOnSave": true,
+    "tslint.configFile": "/tslint.json"
+}

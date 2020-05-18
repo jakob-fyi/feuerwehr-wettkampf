@@ -1,19 +1,16 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+            <ion-menu-button color="light"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-            <ion-button routerLink="/settings">
-                <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
-            </ion-button>
-            <ion-button>
+            <ion-button routerLink="/trainings" color="light">
                 <ion-icon slot="icon-only" name="folder-open-outline"></ion-icon>
             </ion-button>
+            <ion-button routerLink="/settings" color="light">
+                <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+            </ion-button>
         </ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar>
-        <ion-title size="large">Neues Training aufzeichnen</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -24,47 +21,54 @@
         <!-- Start -->
         <ion-button [hidden]="trainingManager.ableToStartTiming() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="setupTrainingAndStart()">
             <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-            <span class="">Zeitaufzeichnung starten</span>
+            <span>Zeitaufzeichnung starten</span>
         </ion-button>
 
         <!-- Interim -->
         <ion-button [hidden]="trainingManager.ableToTakeInterim() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="trainingManager.takeInterim(trainingManager.nextInterim)">
             <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-            <span class="">{{ trainingManager.nextInterim?.name }}</span>
+            <span>{{ trainingManager.nextInterim?.name }}</span>
         </ion-button>
 
-        <!-- Last Interim -->
-        <p [hidden]="trainingManager.prevInterim == false">
-            {{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}
-        </p>
+        <!-- Stop -->
+        <ion-button [hidden]="trainingManager.ableToStopTiming() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="trainingManager.stopTiming()">
+            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
+            <span>Endzeit stoppen</span>
+        </ion-button>
 
-        <!-- All Interims after Stop -->
-        <p *ngFor="let item of trainingManager.interims" [hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED">
-            {{ item.name }}: {{ item.time }}
-        </p>
+        <div class="interim-wrapper">
+
+            <!-- Last Interim -->
+            <ion-chip class="interim" color="light" [hidden]="trainingManager.prevInterim == false">
+                <ion-icon name="timer"></ion-icon>
+                <ion-label class="interim__name">{{ trainingManager.prevInterim?.name }}</ion-label>
+                <ion-label class="interim__time">{{ trainingManager.prevInterim?.time }}</ion-label>
+            </ion-chip>
+
+            <!-- All Interims after Stop -->
+            <ion-chip class="interim" color="light" [hidden]="trainingManager.ableToSaveAndReset() == false" *ngFor="let item of trainingManager.training.interims">
+                <ion-icon name="timer"></ion-icon>
+                <ion-label class="interim__name">{{ item?.name }}</ion-label>
+                <ion-label class="interim__time">{{ item?.time }}</ion-label>
+            </ion-chip>
+
+        </div>
     </div>
 </ion-content>
 
 <ion-footer>
     <div class="stop-reset-buttons">
-        <!-- Stop -->
-        <ion-button [hidden]="trainingManager.ableToStopTiming() == false" fill="solid" shape="round" color="light" (click)="trainingManager.stopTiming()">
-            <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-            <span class="">Endzeit stoppen</span>
-        </ion-button>
 
         <!-- Reset = new Training -->
         <ion-button [hidden]="trainingManager.ableToSaveAndReset() == false" class="button-next-step" fill="solid" shape="round" color="light" (click)="resetTraining()">
             <ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-            <span class="">Speichern & Neues Training</span>
+            <span>Speichern & Neues Training</span>
         </ion-button>
+
     </div>
 
     <div class="training-settings-pane" [ngClass]="{'training-settings-pane--closed': settingsPaneClosed}">
         <ion-list>
-            <ion-list-header>
-                <ion-label>Einstellungen für das Training</ion-label>
-            </ion-list-header>
             <ion-item-divider>Trainingstyp</ion-item-divider>
             <ion-radio-group [(ngModel)]="trainingType">
                 <ion-item>
