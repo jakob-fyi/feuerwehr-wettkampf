@@ -13,19 +13,19 @@ export class AppComponent implements OnInit {
 	public selectedIndex = 0;
 	public appPages = [
 		{
-			title: "Zeit nehmen",
+			title: "Training erfassen",
 			url: "/timing",
 			icon: "stopwatch"
 		},
 		{
-			title: "Meine Zeiten",
+			title: "Aufgezeichnete Trainings",
 			url: "/trainings",
-			icon: "paper-plane"
+			icon: "folder-open"
 		},
 		{
 			title: "Einstellungen",
 			url: "/settings",
-			icon: "heart"
+			icon: "settings"
 		}
 	];
 

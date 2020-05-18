@@ -4,9 +4,8 @@ import { TrainingType } from 'src/app/models/training-type/training-type';
 import { Interim } from 'src/app/models/interim/interim';
 import { StopwatchService } from '../stopwatch/stopwatch.service';
 import { SettingsService } from '../settings/settings.service';
-import { DatabaseService } from '../database/database.service';
-import { StopwatchStatus } from 'src/app/models/stopwatch-status/stopwatch-status';
 import { TrainingStatus } from 'src/app/models/training-status/training-status';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class TrainingService
 
     constructor(
         public stopwatch: StopwatchService,
-        public database: DatabaseService,
+        public storage: StorageService,
         public settings: SettingsService
     )
     { }
@@ -100,7 +99,7 @@ export class TrainingService
 
     public save()
     {
-        this.database.addTraining(this.training);
+        this.storage.addTraining(this.training);
         this.status = TrainingStatus.SAVED;
     }
 
