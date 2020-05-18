@@ -76,8 +76,10 @@ export class SettingsService
         let interims = [];
         this.interims.forEach((interim) =>
         {
-            if (interim.trainingTypes[type] == true)
+            if (interim.trainingTypes[type].setting == true)
+            {
                 interims.push(new Interim(null, interim.name));
+            }
         });
         return interims;
     }
