@@ -8,9 +8,10 @@ import { StatusBar } from "@ionic-native/status-bar/ngx";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { StopwatchPageModule } from "./pages/stopwatch/stopwatch.module";
 import { TrainingsPageModule } from "./pages/trainings/trainings.module";
 import { SettingsPageModule } from "./pages/settings/settings.module";
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { TimingPageModule } from './pages/timing/timing.module';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -19,14 +20,15 @@ import { SettingsPageModule } from "./pages/settings/settings.module";
 		BrowserModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
-		StopwatchPageModule,
+		TimingPageModule,
 		TrainingsPageModule,
 		SettingsPageModule
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
-		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+		SQLite
 	],
 	bootstrap: [AppComponent]
 })

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { StopwatchPageRoutingModule } from './stopwatch-routing.module';
+import { TimingPageRoutingModule } from './timing-routing.module';
 
-import { StopwatchPage } from './stopwatch.page';
+import { TimingPage } from './timing.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StopwatchPageRoutingModule
+    TimingPageRoutingModule
   ],
-  declarations: [StopwatchPage]
+  declarations: [TimingPage]
 })
-export class StopwatchPageModule {}
+export class TimingPageModule {}

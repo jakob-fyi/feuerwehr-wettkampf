@@ -22,16 +22,16 @@
 
 <ion-content>
 	<div class="center">
-		<h1 class="seconds">{{ training.timing.currentDifferential }}</h1>
+		<h1 class="seconds">{{ trainingManager.stopwatch.currentDifferential }}</h1>
 
 		<!-- Start -->
 		<ion-button
-			[hidden]="training.timing.status.started"
+			[hidden]="trainingManager.ableToStartTiming() == false"
 			class="button-next-step"
 			fill="solid"
 			shape="round"
 			color="light"
-			(click)="training.startTiming(); settingsPaneClosed = true;"
+			(click)="setupTrainingAndStart()"
 		>
 			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
 			<span class="">Zeitaufzeichnung starten</span>
@@ -39,31 +39,28 @@
 
 		<!-- Interim -->
 		<ion-button
-			[hidden]="!training.getNextToTakeIterim() || !training.timing.status.running"
+			[hidden]="trainingManager.ableToTakeInterim() == false"
 			class="button-next-step"
 			fill="solid"
 			shape="round"
 			color="light"
-			(click)="training.takeInterim()"
+			(click)="trainingManager.takeInterim(trainingManager.nextInterim)"
 		>
 			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-			<span class="">{{ training.getNextToTakeIterim()?.name }}</span>
+			<span class="">{{ trainingManager.nextInterim?.name }}</span>
 		</ion-button>
 
 		<!-- Last Interim -->
-		<p [hidden]="training.recordedInterims.length <= 0">
-			{{training.recordedInterims[training.recordedInterims.length -
-			1]?.name}}:
-			{{training.recordedInterims[training.recordedInterims.length -
-			1]?.time}}
+		<p [hidden]="trainingManager.prevInterim == false">
+			{{ trainingManager.prevInterim?.name }}: {{ trainingManager.prevInterim?.time }}
 		</p>
 
 		<!-- All Interims after Stop -->
 		<p
-			*ngFor="let item of training.recordedInterims"
-			[hidden]="training.timing.status.running || !(training.timing.status.ended && training.timing.status.started)"
+			*ngFor="let item of trainingManager.interims"
+			[hidden]="trainingManager.status == TrainingStatus.RESETTED || trainingManager.status == TrainingStatus.STARTED"
 		>
-			{{item.name}}: {{item.time}}
+			{{ item.name }}: {{ item.time }}
 		</p>
 	</div>
 </ion-content>
@@ -72,11 +69,11 @@
 	<div class="stop-reset-buttons">
 		<!-- Stop -->
 		<ion-button
-			[hidden]="training.timing.status.ended || !settingsPaneClosed"
+			[hidden]="trainingManager.ableToStopTiming() == false"
 			fill="solid"
 			shape="round"
 			color="light"
-			(click)="training.stopTiming()"
+			(click)="trainingManager.stopTiming()"
 		>
 			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
 			<span class="">Endzeit stoppen</span>
@@ -84,7 +81,7 @@
 
 		<!-- Reset = new Training -->
 		<ion-button
-			[hidden]="training.timing.status.running || !(training.timing.status.ended && training.timing.status.started)"
+			[hidden]="trainingManager.ableToSaveAndReset() == false"
 			class="button-next-step"
 			fill="solid"
 			shape="round"
@@ -92,7 +89,7 @@
 			(click)="resetTraining()"
 		>
 			<ion-icon slot="start" name="stopwatch-outline"></ion-icon>
-			<span class="">Neues Training</span>
+			<span class="">Speichern & Neues Training</span>
 		</ion-button>
 	</div>
 
@@ -105,7 +102,7 @@
 				<ion-label>Einstellungen für das Training</ion-label>
 			</ion-list-header>
 			<ion-item-divider>Trainingstyp</ion-item-divider>
-			<ion-radio-group value="gesamt">
+			<ion-radio-group [(ngModel)]="trainingType">
 				<ion-item>
 					<ion-label>Kuppeln</ion-label>
 					<ion-radio slot="end" value="kuppeln"></ion-radio>
@@ -125,22 +122,5 @@
 				<ion-toggle slot="end"></ion-toggle>
 			</ion-item>
 		</ion-list>
-
-		<!--
-		<div class="toggle-buttons-wrapper">
-			<ion-button class="toggle-button" fill="solid" color="light"
-				>Kuppeln</ion-button
-			>
-			<ion-button class="toggle-button" fill="outline" color="light"
-				>Gesamt</ion-button
-			>
-		</div>
-		<ion-fab-button fill="solid" shape="round" color="light">
-			<ion-icon name="ear-outline"></ion-icon>
-		</ion-fab-button>
-		<ion-fab-button fill="solid" shape="round" color="light" disabled>
-			<ion-icon name="play-outline"></ion-icon>
-		</ion-fab-button>
-		-->
 	</div>
 </ion-footer>

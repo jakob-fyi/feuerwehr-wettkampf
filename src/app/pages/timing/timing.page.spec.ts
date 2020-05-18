@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { StopwatchPage } from './stopwatch.page';
+import { TimingPage } from './timing.page';
 
-describe('StopwatchPage', () => {
-  let component: StopwatchPage;
-  let fixture: ComponentFixture<StopwatchPage>;
+describe('TimingPage', () => {
+  let component: TimingPage;
+  let fixture: ComponentFixture<TimingPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StopwatchPage ],
+      declarations: [ TimingPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StopwatchPage);
+    fixture = TestBed.createComponent(TimingPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

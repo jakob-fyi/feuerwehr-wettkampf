@@ -1,18 +1,18 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
-import { StopwatchPage } from "./pages/stopwatch/stopwatch.page";
 import { TrainingsPage } from "./pages/trainings/trainings.page";
 import { SettingsPage } from "./pages/settings/settings.page";
+import { TimingPage } from './pages/timing/timing.page';
 
 const routes: Routes = [
 	{
 		path: "",
-		redirectTo: "folder/Inbox",
+		redirectTo: "timing",
 		pathMatch: "full"
 	},
 	{
-		path: "stopwatch",
-		component: StopwatchPage
+		path: "timing",
+		component: TimingPage
 	},
 	{
 		path: "trainings",
