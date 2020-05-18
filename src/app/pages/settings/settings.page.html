@@ -16,20 +16,23 @@
 
 <ion-content>
     <ion-list>
-        <ion-item>
-            <ion-label>Pokémon Yellow</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Mega Man X</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>The Legend of Zelda</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Pac-Man</ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>Super Mario World</ion-label>
-        </ion-item>
+        <ion-list-header>
+            <ion-label>Zwischenzeiten</ion-label>
+        </ion-list-header>
+
+        <ion-item-group *ngFor="let interim of settings.interims">
+            <ion-item-divider>
+                <ion-label>{{ interim.name }}</ion-label>
+            </ion-item-divider>
+
+            <ion-item [hidden]="interim.trainingTypes.kuppeln.available == false">
+                <ion-label>Kuppeln</ion-label>
+                <ion-toggle [(ngModel)]="interim.trainingTypes.kuppeln.setting"></ion-toggle>
+            </ion-item>
+            <ion-item [hidden]="interim.trainingTypes.gesamt.available == false">
+                <ion-label>Gesamt</ion-label>
+                <ion-toggle [(ngModel)]="interim.trainingTypes.gesamt.setting"></ion-toggle>
+            </ion-item>
+        </ion-item-group>
     </ion-list>
 </ion-content>
