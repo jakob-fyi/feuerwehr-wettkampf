@@ -8,7 +8,8 @@ import { SettingsService } from 'src/app/services/settings/settings.service';
 })
 export class SettingsPage implements OnInit
 {
-    constructor(private settings: SettingsService) { }
+    constructor(private settings: SettingsService)
+    { }
 
     ngOnInit() { }
 }

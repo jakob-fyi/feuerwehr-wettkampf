@@ -3,6 +3,7 @@ import { Training } from "src/app/models/training/training";
 import { Platform } from "@ionic/angular";
 import { SQLiteProviderService } from "src/app/services/storage-providers/sqlite-provider/sqlite-provider.service";
 import { LocalStorageProviderService } from "../storage-providers/localstorage-provider/local-storage-provider.service";
+import { ISettings } from 'src/app/interfaces/settings';
 
 @Injectable({
     providedIn: "root",
@@ -39,5 +40,10 @@ export class StorageService
     public addTraining(training: Training)
     {
         this.storageProvider.addTraining(training).then(() => this.readTrainings());
+    }
+
+    public writeSettings(settings: ISettings)
+    {
+        this.storageProvider.writeSettings(settings);
     }
 }

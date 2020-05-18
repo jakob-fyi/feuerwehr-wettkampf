@@ -4,8 +4,8 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-            <ion-button routerLink="/settings">
-                <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
+            <ion-button (click)="settings.save()">
+                <ion-icon slot="icon-only" name="save-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -20,7 +20,7 @@
             <ion-label>Zwischenzeiten</ion-label>
         </ion-list-header>
 
-        <ion-item-group *ngFor="let interim of settings.interims">
+        <ion-item-group *ngFor="let interim of settings?.mySettings?.interims">
             <ion-item-divider>
                 <ion-label>{{ interim.name }}</ion-label>
             </ion-item-divider>
