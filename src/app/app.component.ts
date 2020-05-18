@@ -14,8 +14,8 @@ export class AppComponent implements OnInit {
 	public appPages = [
 		{
 			title: "Zeit nehmen",
-			url: "/stopwatch",
-			icon: "mail"
+			url: "/timing",
+			icon: "stopwatch"
 		},
 		{
 			title: "Meine Zeiten",

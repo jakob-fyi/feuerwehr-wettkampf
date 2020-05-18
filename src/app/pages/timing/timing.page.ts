@@ -1,26 +1,23 @@
-import { Component, OnInit } from "@angular/core";
-import { Training } from "src/app/models/training/training";
+import { Component, OnInit } from '@angular/core';
 import { SettingsService } from "src/app/services/settings/settings.service";
-import { DatabaseService } from 'src/app/services/database/database.service';
 import { TrainingService } from 'src/app/services/training/training.service';
 import { TrainingType } from 'src/app/models/training-type/training-type';
 
 @Component({
-	selector: "app-stopwatch",
-	templateUrl: "./stopwatch.page.html",
-	styleUrls: ["./stopwatch.page.scss"]
+    selector: 'app-timing',
+    templateUrl: './timing.page.html',
+    styleUrls: ['./timing.page.scss'],
 })
-export class StopwatchPage implements OnInit
-{
+export class TimingPage implements OnInit {
+
+  
 	private settingsPaneClosed: boolean = false;
 	private trainingType: TrainingType = TrainingType.Kuppeln;
 
 	constructor(
 		public settings: SettingsService, 
 		public trainingManager: TrainingService
-	) {
-		
-	}
+	) { }
 
 	ngOnInit(){}
 
