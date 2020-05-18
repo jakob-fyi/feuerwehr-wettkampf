@@ -1,3 +1,13 @@
+ion-header,
+ion-toolbar,
+ion-toolbar:host{
+    --background: var(--ion-color-primary);
+}
+
+.header-md:after{
+    height: 0px;
+}
+
 ion-content {
 	--background: var(--ion-color-primary);
 
