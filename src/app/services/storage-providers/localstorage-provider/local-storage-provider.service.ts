@@ -3,62 +3,43 @@ import { IStorageProvider } from "src/app/interfaces/storage-provider";
 import { SQLite } from "@ionic-native/sqlite/ngx";
 import { LoggerService } from "../../logger/logger.service";
 import { Training } from "src/app/models/training/training";
+import { ISettings } from 'src/app/interfaces/settings';
 
 @Injectable({
     providedIn: "root",
 })
 export class LocalStorageProviderService implements IStorageProvider
 {
-    private data: any = null;
-    private name: string = "feuerwehr_wettkampf";
+    private prefix: string = "feuerwehr_wettkampf";
+    private slugTrainings = this.prefix + "_trainings";
+    private slugSettings = this.prefix + "_settings";
 
     constructor(public logger: LoggerService)
     {
-        this.createDbIfNotExists();
+        this.createStorageIfNotExists();
     }
 
-    private createDbIfNotExists()
+    private read = (slug) => JSON.parse(window.localStorage.getItem(slug));
+    private write = (slug, data) => window.localStorage.setItem(slug, JSON.stringify(data));
+
+    private createStorageIfNotExists()
     {
-        return new Promise((resolve, reject) =>
+        if (window.localStorage.getItem(this.slugTrainings) == null)
         {
-            if (window.localStorage.getItem(this.name) == null)
-            {
-                let initObj = { trainings: [] };
-                window.localStorage.setItem(this.name, JSON.stringify(initObj));
-            }
-
-            resolve();
-        });
+            this.write(this.slugTrainings, []);
+        }
     }
 
-    public readTrainings()
+    public readTrainings = () => new Promise((resolve) => resolve(this.read(this.slugTrainings)));
+    public addTraining = (training: Training) => new Promise((resolve) =>
     {
-        return new Promise((resolve, reject) =>
-        {
-            this.read();
-            resolve(this.data.trainings);
-        });
-    }
+        training.id = Date.now();
+        let currentTrainingStore = this.read(this.slugTrainings);
+        currentTrainingStore.push(training);
+        this.write(this.slugTrainings, currentTrainingStore);
+        resolve(currentTrainingStore);
+    });
 
-    public addTraining(training: Training)
-    {
-        return new Promise((resolve, reject) =>
-        {
-            training.id = Date.now();
-            this.data.trainings.push(training);
-            this.write();
-            resolve(training);
-        });
-    }
-
-    private read()
-    {
-        this.data = JSON.parse(window.localStorage.getItem(this.name));
-        return this.data;
-    }
-
-    private write()
-    {
-        window.localStorage.setItem(this.name, JSON.stringify(this.data));
-    }
+    public readSettings = () => new Promise((resolve) => resolve(this.read(this.slugSettings)));
+    public writeSettings = (settings: ISettings) => new Promise((resolve) => resolve(this.write(this.slugSettings, settings)));
 }

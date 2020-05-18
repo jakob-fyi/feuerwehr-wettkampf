@@ -1,76 +1,110 @@
 import { Injectable } from "@angular/core";
 import { TrainingType } from "src/app/models/training-type/training-type";
 import { Interim } from "src/app/models/interim/interim";
+import { ISettings } from 'src/app/interfaces/settings';
+import { StorageService } from '../storage/storage.service';
+import { runInThisContext } from 'vm';
 
 @Injectable({
     providedIn: "root",
 })
 export class SettingsService
 {
-    public interims: Array<any>;
+    public mySettings: ISettings = null;
 
-    constructor()
+    public constructor(public storage: StorageService)
     {
-        this.interims = [
+        this.storage.storageProvider.readSettings().then((data) =>
+        {
+            if (data == null)
             {
-                sortIndex: 10,
-                name: "Leinen anlegen",
-                trainingTypes: {
-                    kuppeln: true,
-                    gesamt: true,
-                },
-            },
+                this.mySettings = this.predefinedSettingsObject;
+                this.storage.storageProvider.writeSettings(this.mySettings);
+            }
+            else
             {
-                sortIndex: 20,
-                name: "Saugleitung zu Wasser",
-                trainingTypes: {
-                    kuppeln: true,
-                    gesamt: true,
-                },
-            },
-            {
-                sortIndex: 30,
-                name: "Angesaugt",
-                trainingTypes: {
-                    kuppeln: true,
-                    gesamt: true,
-                },
-            },
-            {
-                sortIndex: 40,
-                name: "STF Wasser marsch",
-                trainingTypes: {
-                    kuppeln: false,
-                    gesamt: true,
-                },
-            },
-            {
-                sortIndex: 50,
-                name: "STF Wasser marsch",
-                trainingTypes: {
-                    kuppeln: false,
-                    gesamt: true,
-                },
-            },
-            {
-                sortIndex: 60,
-                name: "STF Wasser marsch",
-                trainingTypes: {
-                    kuppeln: false,
-                    gesamt: true,
-                },
-            },
-        ];
+                this.mySettings = data;
+            }
+
+        });
+    }
+
+    public save()
+    {
+        this.storage.storageProvider.writeSettings(this.mySettings);
     }
 
     public getInterimsForTraingType(type: TrainingType): Array<Interim>
     {
         let interims = [];
-        this.interims.forEach((interim) =>
+        this.mySettings.interims.forEach((interim) =>
         {
-            if (interim.trainingTypes[type] == true)
+            if (interim.trainingTypes[type].setting == true)
+            {
                 interims.push(new Interim(null, interim.name));
+            }
         });
         return interims;
     }
+
+    public predefinedSettingsObject: ISettings = {
+        interims: [
+            {
+                sortIndex: 10,
+                name: "Leinen anlegen",
+                trainingTypes: {
+                    kuppeln: {
+                        available: true,
+                        setting: true
+                    },
+                    gesamt: {
+                        available: true,
+                        setting: true
+                    }
+                }
+            },
+            {
+                sortIndex: 20,
+                name: "Saugleitung zu Wasser",
+                trainingTypes: {
+                    kuppeln: {
+                        available: true,
+                        setting: true
+                    },
+                    gesamt: {
+                        available: true,
+                        setting: true
+                    }
+                }
+            },
+            {
+                sortIndex: 30,
+                name: "Angesaugt",
+                trainingTypes: {
+                    kuppeln: {
+                        available: true,
+                        setting: true
+                    },
+                    gesamt: {
+                        available: true,
+                        setting: true
+                    }
+                }
+            },
+            {
+                sortIndex: 40,
+                name: "STF Wasser marsch",
+                trainingTypes: {
+                    kuppeln: {
+                        available: false,
+                        setting: false
+                    },
+                    gesamt: {
+                        available: true,
+                        setting: true
+                    }
+                }
+            }
+        ]
+    };
 }
