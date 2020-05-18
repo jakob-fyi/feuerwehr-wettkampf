@@ -1,4 +1,4 @@
-import { Training } from '../models/training/training';
+import { Training } from "../models/training/training";
 
 export interface IStorageProvider
 {

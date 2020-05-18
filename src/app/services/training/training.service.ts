@@ -8,7 +8,7 @@ import { TrainingStatus } from 'src/app/models/training-status/training-status';
 import { StorageService } from '../storage/storage.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class TrainingService
 {
@@ -21,8 +21,7 @@ export class TrainingService
         public stopwatch: StopwatchService,
         public storage: StorageService,
         public settings: SettingsService
-    )
-    { }
+    ) { }
 
     public startNewTraining(type: TrainingType)
     {
@@ -34,8 +33,7 @@ export class TrainingService
 
     public ableToStartTiming()
     {
-        if (this.training == null)
-            return false;
+        if (this.training == null) { return false; }
 
         return this.status == TrainingStatus.RESETTED;
     }
@@ -57,10 +55,9 @@ export class TrainingService
 
     public getNextToTakeIterim(): any
     {
-        for (let interim of this.training.interims)
+        for (const interim of this.training.interims)
         {
-            if (interim.isTaken == false)
-                return interim;
+            if (interim.isTaken == false) { return interim; }
         }
 
         return false;
@@ -68,9 +65,10 @@ export class TrainingService
 
     public getLastTakenInterim()
     {
-        this.training.interims.reverse().forEach(
-            (interim) => { if (interim.isTaken == true) return interim; }
-        );
+        this.training.interims.reverse().forEach((interim) =>
+        {
+            if (interim.isTaken == true) { return interim; }
+        });
         return false;
     }
 
@@ -88,10 +86,9 @@ export class TrainingService
         this.nextInterim = this.getNextToTakeIterim();
     }
 
-    public stopTiming() 
+    public stopTiming()
     {
-        if (this.nextInterim != false)
-            return false;
+        if (this.nextInterim != false) { return false; }
         this.stopwatch.stop();
         this.prevInterim = false;
         this.status = TrainingStatus.STOPPED;
