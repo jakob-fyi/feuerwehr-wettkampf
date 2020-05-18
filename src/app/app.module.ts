@@ -10,26 +10,26 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { TrainingsPageModule } from "./pages/trainings/trainings.module";
 import { SettingsPageModule } from "./pages/settings/settings.module";
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
-import { TimingPageModule } from './pages/timing/timing.module';
+import { SQLite, SQLiteObject } from "@ionic-native/sqlite/ngx";
+import { TimingPageModule } from "./pages/timing/timing.module";
 
 @NgModule({
-	declarations: [AppComponent],
-	entryComponents: [],
-	imports: [
-		BrowserModule,
-		IonicModule.forRoot(),
-		AppRoutingModule,
-		TimingPageModule,
-		TrainingsPageModule,
-		SettingsPageModule
-	],
-	providers: [
-		StatusBar,
-		SplashScreen,
-		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-		SQLite
-	],
-	bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    entryComponents: [],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        TimingPageModule,
+        TrainingsPageModule,
+        SettingsPageModule,
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        SQLite,
+    ],
+    bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

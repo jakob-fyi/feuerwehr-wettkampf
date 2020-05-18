@@ -1,41 +1,41 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-buttons slot="primary">
-			<ion-button routerLink="/settings">
-				<ion-icon slot="icon-only" name="settings-outline"></ion-icon>
-			</ion-button>
-		</ion-buttons>
-	</ion-toolbar>
-	<ion-toolbar>
-		<ion-title size="large">Aufgezeichnete Trainings</ion-title>
-	</ion-toolbar>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-      <ion-chip color="primary" outline="false" (click)="toggleFilterKuppeln()">
-        <ion-icon [hidden]="!filter.kuppeln" name="checkmark-circle" color="primary"></ion-icon>
-        <ion-icon [hidden]="filter.kuppeln" name="close-circle" color="primary"></ion-icon>
-        <ion-label>Kuppeln</ion-label>
-      </ion-chip>
-      <ion-chip color="primary" outline="false" (click)="toggleFilterGesamt()">
-        <ion-icon [hidden]="!filter.gesamt" name="checkmark-circle" color="primary"></ion-icon>
-        <ion-icon [hidden]="filter.gesamt" name="close-circle" color="primary"></ion-icon>
-        <ion-label>Gesamt</ion-label>
-      </ion-chip>
-		</ion-buttons>
-	</ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+            <ion-button routerLink="/settings">
+                <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-title size="large">Aufgezeichnete Trainings</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-chip color="primary" outline="false" (click)="toggleFilterKuppeln()">
+                <ion-icon [hidden]="!filter.kuppeln" name="checkmark-circle" color="primary"></ion-icon>
+                <ion-icon [hidden]="filter.kuppeln" name="close-circle" color="primary"></ion-icon>
+                <ion-label>Kuppeln</ion-label>
+            </ion-chip>
+            <ion-chip color="primary" outline="false" (click)="toggleFilterGesamt()">
+                <ion-icon [hidden]="!filter.gesamt" name="checkmark-circle" color="primary"></ion-icon>
+                <ion-icon [hidden]="filter.gesamt" name="close-circle" color="primary"></ion-icon>
+                <ion-label>Gesamt</ion-label>
+            </ion-chip>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let training of storage?.trainings">
-      <ion-label>
-        <h3>Gesamtzeit</h3>
-        <p>Zwischenzeiten</p>
-        <p>{{ training.trainingType == "kuppeln" ? "Kuppeln" : "Gesamt" }} <span>&bull;</span> {{ training.recordDate | date: 'dd.MM.yyyy HH:mm' }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+    <ion-list>
+        <ion-item *ngFor="let training of storage?.trainings">
+            <ion-label>
+                <h3>Gesamtzeit</h3>
+                <p>Zwischenzeiten</p>
+                <p>{{ training.trainingType == "kuppeln" ? "Kuppeln" : "Gesamt" }} <span>&bull;</span> {{ training.recordDate | date: 'dd.MM.yyyy HH:mm' }}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
 </ion-content>

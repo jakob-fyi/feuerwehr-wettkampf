@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
-export class LoggerService {
+export class LoggerService
+{
+    constructor() { }
 
-  constructor() { }
-
-  public error(e)
-  {
-    console.log("ERROR: ", e);
-  }
+    public error(e)
+    {
+        console.log("ERROR: ", e);
+    }
 }

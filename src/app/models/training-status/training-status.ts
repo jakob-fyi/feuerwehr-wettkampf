@@ -1,6 +1,7 @@
-export enum TrainingStatus {
+export enum TrainingStatus
+{
     RESETTED,
     STARTED,
     STOPPED,
-    SAVED
+    SAVED,
 }

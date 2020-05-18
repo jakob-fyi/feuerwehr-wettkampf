@@ -1,4 +1,5 @@
-export enum TrainingType {
+export enum TrainingType
+{
     Kuppeln = "kuppeln",
-    Gesamt = "gesamt"
+    Gesamt = "gesamt",
 }
