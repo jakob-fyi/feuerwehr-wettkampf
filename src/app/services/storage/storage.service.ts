@@ -19,6 +19,7 @@ export class StorageService
         private localSorageProvider: LocalStorageProviderService
     )
     {
+        /*
         if (this.platform.is("cordova"))
         {
             this.storageProvider = this.sqiteProvider;
@@ -26,7 +27,9 @@ export class StorageService
         {
             this.storageProvider = this.localSorageProvider;
         }
+        */
 
+        this.storageProvider = this.localSorageProvider;
         this.readTrainings();
     }
 
