@@ -3,7 +3,6 @@ import { TrainingType } from "src/app/models/training-type/training-type";
 import { Interim } from "src/app/models/interim/interim";
 import { ISettings } from 'src/app/interfaces/settings';
 import { StorageService } from '../storage/storage.service';
-import { runInThisContext } from 'vm';
 
 @Injectable({
     providedIn: "root",
