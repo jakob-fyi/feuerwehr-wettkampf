@@ -4,6 +4,7 @@ import { SQLite, SQLiteObject } from "@ionic-native/sqlite/ngx";
 import { LoggerService } from "../../logger/logger.service";
 import { Training } from "src/app/models/training/training";
 import { Platform } from "@ionic/angular";
+import { ISettings } from 'src/app/interfaces/settings';
 
 @Injectable({
     providedIn: "root",
@@ -59,6 +60,7 @@ export class SQLiteProviderService implements IStorageProvider
 
     public readTrainings()
     {
+        throw new Error("Not implemented");
         return new Promise((resolve, reject) =>
         {
             this.data
@@ -73,6 +75,7 @@ export class SQLiteProviderService implements IStorageProvider
 
     public addTraining(training: Training)
     {
+        throw new Error("Not implemented");
         return new Promise((resolve, reject) =>
         {
             this.data
@@ -113,4 +116,7 @@ export class SQLiteProviderService implements IStorageProvider
                 .catch((e) => this.logger.error(e));
         });
     }
+
+    public readSettings = () => { throw new Error("Not implemented") };
+    public writeSettings = (settings: ISettings) => { throw new Error("Not implemented") };
 }
