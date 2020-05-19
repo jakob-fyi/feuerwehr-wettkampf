@@ -41,5 +41,9 @@ export class LocalStorageProviderService implements IStorageProvider
     });
 
     public readSettings = () => new Promise((resolve) => resolve(this.read(this.slugSettings)));
-    public writeSettings = (settings: ISettings) => new Promise((resolve) => resolve(this.write(this.slugSettings, settings)));
+    public writeSettings = (settings: ISettings) => new Promise((resolve) =>
+    {
+        this.write(this.slugSettings, settings);
+        resolve();
+    });
 }
